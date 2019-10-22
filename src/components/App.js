@@ -5,8 +5,8 @@ import GamesList from './GamesList';
 const games = [
     {
         _id: 1,
-        name: "Quadropolis",
-        thumbnail: "https://cf.geekdo-images.com/W9bbXs5FZwzLNlT5Pz6G-uV2Wek=/fit-in/1200x630/pic3251870.jpg",
+        name: "Strategy Pack-A",
+        thumbnail: "https://ksr-ugc.imgix.net/assets/015/361/511/eb3139a5996c2615e879a684ebfd9af1_original.jpg?w=680&fit=max&v=1485968021&auto=format&q=92&s=883858ed01e7244525f6729b0e5a98b2",
         price:"35.99",
         players: "2-4",
         duration: 60,
@@ -21,11 +21,19 @@ const games = [
     },
     {
         _id: 3,
-        name: "Rose Of The Galaxy",
-        thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq9W5ck7D255MvP5TL9BgEoR_NYVK5J-6TWrHcD71smAEIju1LNQ",
+        name: "King Of New York",
+        thumbnail: "http://www.ibgcafe.com/wp-content/uploads/bfi_thumb/kony-1-nqdex1he2sfnm7l6kl3zojwierbloon60oxgi3fxd8.jpg",
         price:"52.00",
         players: "2-4",
         duration: 45,
+    },
+    {
+        _id: 4,
+        name: "Big Buck Bunny",
+        thumbnail: "https://i4.lisimg.com/13684264/411full.jpg",
+        price:"70.00",
+        players: "2-6",
+        duration: 90,
     }
 ];
 
