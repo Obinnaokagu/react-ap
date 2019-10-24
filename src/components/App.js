@@ -35,7 +35,7 @@ const games = [
         players: "2-6",
         duration: 90,
     }
-]
+];
 
 
 

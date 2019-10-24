@@ -4,7 +4,9 @@ import propTypes from 'prop-types'
 const GameCard = ({ game }) => (
   <div className="ui card">
     <div className="image">
-      <span className="ui green ribbon label">${game.price}</span> 
+      <span className="ui green ribbon label">
+        ${game.price}{game.price < 4000 && "!"}
+      </span> 
       <img src={game.thumbnail} alt="GameCover" />
     </div>
     <div className="content">
