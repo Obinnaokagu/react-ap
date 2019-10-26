@@ -25,7 +25,7 @@ const games = [
   },
   {
     _id: 3,
-    featured:false,
+    featured: false,
     name: 'King Of New York',
     thumbnail:
       'http://www.ibgcafe.com/wp-content/uploads/bfi_thumb/kony-1-nqdex1he2sfnm7l6kl3zojwierbloon60oxgi3fxd8.jpg',
@@ -48,15 +48,20 @@ class App extends React.Component {
   state = {
     games: [],
   };
+
   componentDidMount() {
     this.setState({
       games: _orderBy(games, ['featured', 'name'], ['desc', 'asc']),
     });
   }
 
-  toggleFeatured(gameId) {
-    alert(gameId);
-  }
+  toggleFeatured = gameId => {
+    const newGames = this.state.games.map(game => {
+      if (game._id === gameId) return { ...game, featured: !game.featured };
+      return game;
+    });
+    this.setState({ games: newGames });
+  };
 
   render() {
     return (
