@@ -1,11 +1,11 @@
 import React from 'react';
-import _orderBy from "lodash/orderBy";
+import _orderBy from 'lodash/orderBy';
 import GamesList from './GamesList';
 
 const games = [
   {
     _id: 1,
-    featured: false,
+    featured: true,
     name: 'Strategy Pack-A',
     thumbnail:
       'https://ksr-ugc.imgix.net/assets/015/361/511/eb3139a5996c2615e879a684ebfd9af1_original.jpg?w=680&fit=max&v=1485968021&auto=format&q=92&s=883858ed01e7244525f6729b0e5a98b2',
@@ -25,7 +25,7 @@ const games = [
   },
   {
     _id: 3,
-    featured: true,
+    featured:false,
     name: 'King Of New York',
     thumbnail:
       'http://www.ibgcafe.com/wp-content/uploads/bfi_thumb/kony-1-nqdex1he2sfnm7l6kl3zojwierbloon60oxgi3fxd8.jpg',
@@ -50,12 +50,21 @@ class App extends React.Component {
   };
   componentDidMount() {
     this.setState({
-      games: _orderBy(games, ["Featured", "name "], ["desc", "asc"])});
+      games: _orderBy(games, ['featured', 'name'], ['desc', 'asc']),
+    });
   }
+
+  toggleFeatured(gameId) {
+    alert(gameId);
+  }
+
   render() {
     return (
       <div className="ui container">
-        <GamesList games={this.state.games} />
+        <GamesList
+          games={this.state.games}
+          toggleFeatured={this.toggleFeatured}
+        />
       </div>
     );
   }
