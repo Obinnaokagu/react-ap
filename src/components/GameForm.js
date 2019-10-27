@@ -12,16 +12,10 @@ class GameForm extends Component {
     e.preventDefault();
     console.log(this.state);
   };
-  handleChange = e =>
-    this.setState({
-      [e.target.name]: 
-      (e.target.type = 'number'
-        ? parseInt(e.target.value, 10)
-        : e.target.value),
-    });
+  handleStringChange = e =>
+    this.setState({ [e.target.name]: e.target.value });
+    handleNumberChange = e => this.setState({ [e.target.name]: parseInt(e.target.value, 10) });
 
-  //   handleNameChange= e => this.setState({ name: e.target.value})
-  //   handleDescriptionChange= e => this.setState({ description: e.target.value})
   render() {
     return (
       <form className="ui form" onSubmit={this.handleSumbit}>
@@ -33,7 +27,7 @@ class GameForm extends Component {
             name="name"
             placeholder="Full game title"
             value={this.state.name}
-            onChange={this.handleChange}
+            onChange={this.handleStringChange}
           />
         </div>
 
@@ -45,29 +39,29 @@ class GameForm extends Component {
             name="description"
             placeholder="Game description"
             value={this.state.description}
-            onChange={this.handleChange}
+            onChange={this.handleStringChange}
           />
         </div>
 
         <div className="three fields">
           <div className="field">
-            <label htmlFor="price">price (in cents)</label>
+            <label htmlFor="price">price(in cents)</label>
             <input
               type="number"
               id="price"
               name="price"
               value={this.state.price}
-              onChange={this.handleChange}
+              onChange={this.handleNumberChange}
             />
           </div>
           <div className="field">
-            <label htmlFor="duration">Duration (in mins)</label>
+            <label htmlFor="duration">Duration(in min)</label>
             <input
               type="number"
               id="duration"
               name="duration"
               value={this.state.duration}
-              onChange={this.handleChange}
+              onChange={this.handleNumberChange}
             />
           </div>
           <div className="field">
@@ -77,10 +71,11 @@ class GameForm extends Component {
               id="players"
               name="players"
               value={this.state.players}
-              onChange={this.handleChange}
+              onChange={this.handleStringChange}
             />
           </div>
         </div>
+        
         <button className="ui button" type="submit">
           Create
         </button>
