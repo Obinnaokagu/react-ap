@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 
 class GameForm extends Component {
-    state= {
-        name: "",
-        description: ""
-    }
+  state = {
+    name: '',
+    description: '',
+    price: 0,
+    duration: 0,
+    players: '',
+  };
   handleSumbit = e => {
     e.preventDefault();
     console.log(this.state);
   };
-  handleChange = e => this.setState({[e.target.name]: e.target.value });
+  handleChange = e =>
+    this.setState({
+      [e.target.name]: 
+      (e.target.type = 'number'
+        ? parseInt(e.target.value, 10)
+        : e.target.value),
+    });
 
-//   handleNameChange= e => this.setState({ name: e.target.value})
-//   handleDescriptionChange= e => this.setState({ description: e.target.value})
+  //   handleNameChange= e => this.setState({ name: e.target.value})
+  //   handleDescriptionChange= e => this.setState({ description: e.target.value})
   render() {
     return (
       <form className="ui form" onSubmit={this.handleSumbit}>
@@ -26,9 +35,9 @@ class GameForm extends Component {
             value={this.state.name}
             onChange={this.handleChange}
           />
-          </div>
+        </div>
 
-          <div className="field">
+        <div className="field">
           <label htmlFor="description">Game description</label>
           <textarea
             type="text"
@@ -38,10 +47,43 @@ class GameForm extends Component {
             value={this.state.description}
             onChange={this.handleChange}
           />
+        </div>
+
+        <div className="three fields">
+          <div className="field">
+            <label htmlFor="price">price (in cents)</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={this.state.price}
+              onChange={this.handleChange}
+            />
           </div>
-          <button className="ui button" type="submit">
-            Create
-          </button>
+          <div className="field">
+            <label htmlFor="duration">Duration (in mins)</label>
+            <input
+              type="number"
+              id="duration"
+              name="duration"
+              value={this.state.duration}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="players">players</label>
+            <input
+              type="text"
+              id="players"
+              name="players"
+              value={this.state.players}
+              onChange={this.handleChange}
+            />
+          </div>
+        </div>
+        <button className="ui button" type="submit">
+          Create
+        </button>
       </form>
     );
   }
