@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+// import { generateKeyPairSync } from 'crypto';
 
 const tags = [
   { _id: 1, name: 'dice' },
   { _id: 2, name: 'economic' },
   { _id: 3, name: 'family' },
   { _id: 4, name: 'children' },
+];
+
+const genres = [
+  { _id: 1, name: 'nigeria' },
+  { _id: 2, name: 'economic' },
+  { _id: 3, name: 'electricity' },
+  { _id: 4, name: 'government' },
 ];
 
 class GameForm extends Component {
@@ -16,6 +24,7 @@ class GameForm extends Component {
     players: '',
     featured: false,
     tags: [],
+    genre: 1,
   };
   handleSumbit = e => {
     e.preventDefault();
@@ -30,6 +39,7 @@ class GameForm extends Component {
     this.state.tags.includes(tag._id)
       ? this.setState({ tags: this.state.tags.filter(id => id !== tag._id) })
       : this.setState({ tags: [...this.state.tags, tag._id] });
+  handleGenreChange = genre => this.setState({ genre: genre._id });
 
   render() {
     return (
@@ -113,6 +123,21 @@ class GameForm extends Component {
               <label htmlFor={`tag-${tag._id}`}>{tag.name}</label>
             </div>
           ))}
+        </div>
+        <div className="field">
+          <label>Genres</label>
+          {genres.map(genre => (
+            <div key={genre._id} className="inline field">
+              <input
+                id={`genre-${genre._id}`}
+                type="radio"
+                checked={this.state.genre === genre._id}
+                onChange={() => this.handleGenreChange(genre)}
+              />
+              <label htmlFor={`gener-${genre._id}`}>genre.name</label>
+            </div>
+          ))
+          }
         </div>
 
         <button className="ui button" type="submit">
