@@ -3,9 +3,21 @@ import _orderBy from 'lodash/orderBy';
 import GamesList from './GamesList';
 import GameForm from './GameForm';
 
+const publishers= [
+  {
+    _id: 1,
+    name: "Days of Wonder"
+  },
+  {
+    _id: 2,
+    name: "Rio Grand Games"
+  }
+]
+
 const games = [
   {
     _id: 1,
+    publisher: 1,
     featured: true,
     name: 'Strategy Pack-A',
     thumbnail:
@@ -16,6 +28,7 @@ const games = [
   },
   {
     _id: 2,
+    publisher: 1,
     featured: false,
     name: 'Five Tribes',
     thumbnail:
@@ -26,6 +39,7 @@ const games = [
   },
   {
     _id: 3,
+    publisher: 2,
     featured: false,
     name: 'King Of New York',
     thumbnail:
@@ -36,6 +50,7 @@ const games = [
   },
   {
     _id: 4,
+    publisher: 2,
     featured: false,
     name: 'Big Buck Bunny',
     thumbnail: 'https://i4.lisimg.com/13684264/411full.jpg',
@@ -67,7 +82,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="ui container">
-        <GameForm />
+        <GameForm publishers={publishers}/>
         <br />
         <GamesList
           games={this.state.games}

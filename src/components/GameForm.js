@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { generateKeyPairSync } from 'crypto';
+import propTypes from 'prop-types';
 
 const tags = [
   { _id: 1, name: 'dice' },
@@ -25,6 +25,7 @@ class GameForm extends Component {
     featured: false,
     tags: [],
     genre: 1,
+    publisher: 0,
   };
   handleSumbit = e => {
     e.preventDefault();
@@ -134,10 +135,24 @@ class GameForm extends Component {
                 checked={this.state.genre === genre._id}
                 onChange={() => this.handleGenreChange(genre)}
               />
-              <label htmlFor={`gener-${genre._id}`}>genre.name</label>
+              <label htmlFor={`genre-${genre._id}`}>{genre.name}</label>
             </div>
-          ))
-          }
+          ))}
+        </div>
+        <div className="field">
+          <label>publishers</label>
+          <select
+            name="publisher"
+            value="this.state.publisher"
+            onChange={this.handleNumberChange}
+          >
+            <option value="0">choose publisher</option>
+            {this.props.publishers.map(publisher => (
+              <option value={publisher._id} key={publisher._id}>
+                {publisher.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <button className="ui button" type="submit">
@@ -147,5 +162,16 @@ class GameForm extends Component {
     );
   }
 }
+GameForm.propTypes = {
+  publishers: propTypes.arrayOf(
+    propTypes.shape({
+      _id: propTypes.number.isRequried,
+      name: propTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
+GameForm.defaultProps = {
+  publishers: [],
+};
 
 export default GameForm;
