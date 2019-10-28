@@ -132,10 +132,13 @@ class GameForm extends Component {
             ))}
           </select>
         </div>
-
-        <button className="ui button" type="submit">
+        <div className="ui fluid buttons">
+        <button className="ui primary button" type="submit">
           Create
         </button>
+        <div className="or"></div>
+        <a className="ui button" onClick={this.props.cancle}>Cancle</a>
+        </div>
       </form>
     );
   }
@@ -147,6 +150,7 @@ GameForm.propTypes = {
       name: propTypes.string.isRequired,
     }),
   ).isRequired,
+  cancle: propTypes.func.isRequired
 };
 GameForm.defaultProps = {
   publishers: [],

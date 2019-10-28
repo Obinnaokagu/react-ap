@@ -2,17 +2,18 @@ import React from 'react';
 import _orderBy from 'lodash/orderBy';
 import GamesList from './GamesList';
 import GameForm from './GameForm';
+import TopNavigation from './TopNavigation';
 
-const publishers= [
+const publishers = [
   {
     _id: 1,
-    name: "Days of Wonder"
+    name: 'Days of Wonder',
   },
   {
     _id: 2,
-    name: "Rio Grand Games"
-  }
-]
+    name: 'Rio Grand Games',
+  },
+];
 
 const games = [
   {
@@ -63,6 +64,7 @@ const games = [
 class App extends React.Component {
   state = {
     games: [],
+    showGameForm: false,
   };
 
   componentDidMount() {
@@ -79,15 +81,29 @@ class App extends React.Component {
     this.setState({ games: newGames });
   };
 
+  showGameForm = () => this.setState({ showGameForm: true });
+  hideGameForm = () => this.setState({ showGameForm: false });
+
   render() {
+    const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
     return (
       <div className="ui container">
-        <GameForm publishers={publishers}/>
+        <TopNavigation showGameForm={this.showGameForm} />
+        <div className="ui stackable grid">
+          {this.state.showGameForm && (
+            <div className="six wide column">
+              <GameForm publishers={publishers} cancle={this.hideGameForm} />
+            </div>
+          )}
+          <div className={`${numberOfColumns} wide column`}>
+            <GamesList
+              games={this.state.games}
+              toggleFeatured={this.toggleFeatured}
+            />
+          </div>
+        </div>
+
         <br />
-        <GamesList
-          games={this.state.games}
-          toggleFeatured={this.toggleFeatured}
-        />
       </div>
     );
   }
