@@ -137,7 +137,7 @@ class GameForm extends Component {
           Create
         </button>
         <div className="or"></div>
-        <a className="ui button" onClick={this.props.cancle}>Cancle</a>
+        <a className="ui secondary button" onClick={this.props.cancle}>Cancle</a>
         </div>
       </form>
     );
