@@ -17,9 +17,25 @@ class GameForm extends Component {
     },
     errors: {},
   };
+
+  validation(data) {
+    const errors = {};
+    if(!data.name) errors.name = "This field can't be blank";
+    if(!data.players) errors.players = "This field can't be blank"; 
+    if(!data.thumbnail) errors.thumbnail = "This field can't be blank";
+    if(!data.publisher) errors.publisher = "This field can't be blank";
+    if(data.price <= 0) errors.price = "Very cheap, and can be easly afford";
+    if(data.duration <= 0) errors.duration = "Too short, can't enjoy the playing time";
+    return errors;
+  }
   handleSumbit = e => {
     e.preventDefault();
-    console.log(this.state.data);
+    const errors = this.validation(this.state.data);
+    this.setState({ errors });
+
+    if(Object.keys(errors).length === 0) {
+      console.log(this.state.data)
+    }
   };
   handleStringChange = e =>
     this.setState({
@@ -138,7 +154,7 @@ class GameForm extends Component {
           <label htmlFor="faetured">featured?</label>
         </div>
 
-        <div className={errors.publishers ? 'field error' : 'field'}>
+        <div className={errors.publisher ? 'field error' : 'field'}>
           <label>publishers</label>
           <select
             name="publisher"
@@ -151,7 +167,7 @@ class GameForm extends Component {
                 {publisher.name}
               </option>
             ))}
-            <FormInLineMessage content={errors.publishers} type="error" />
+            <FormInLineMessage content={errors.publisher} type="error" />
           </select>
         </div>
         <div className="ui fluid buttons">
