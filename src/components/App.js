@@ -68,22 +68,37 @@ class App extends React.Component {
     selectedGame: {},
   };
 
+  
   componentDidMount() {
     this.setState({
-      games: _orderBy(games, ['featured', 'name'], ['desc', 'asc']),
+      games: this.sortGames(games)
     });
   }
 
+  sortGames(games) {
+    return _orderBy(games, ['featured', 'name'], ['desc', 'asc']);
+  }
 
 
-  
-  toggleFeatured = gameId => {
-    const newGames = this.state.games.map(game => {
-      if (game._id === gameId) return { ...game, featured: !game.featured };
-      return game;
-    });
-    this.setState({ games: newGames });
-  };
+toggleFeatured = gameId => {
+  this.setState({
+    games: this.sortGames(
+      this.state.games.map(
+        game =>
+        gameId === game._id ? { ...game, featured: !game.featured } : game
+      )
+    )
+  });
+}
+
+  // or
+  // toggleFeatured = gameId => {
+  //   const newGames = this.state.games.map(game => {
+  //     if (game._id === gameId) return { ...game, featured: !game.featured };
+  //     return game;
+  //   });
+  //   this.setState({ games: this.sortGames(newGames) });
+  // };
 
 
 
@@ -92,6 +107,8 @@ class App extends React.Component {
 
   selectGameForEditing = game =>
     this.setState({ selectedGame: game, showGameForm: true });
+
+    saveGame = game => (game._id ? this.updateGame(game): this.addGame(game));
 
 
   addGame = game =>
@@ -105,6 +122,14 @@ class App extends React.Component {
         },
       ],
       showGameForm: false,
+    });
+
+    updateGame = game => 
+    this.setState({
+      games: this.sortGames(
+        this.state.games.map(item => (item._id === game._id ? game : item))
+      ),
+      showGameForm: false
     });
 
 
@@ -121,7 +146,7 @@ class App extends React.Component {
               <GameForm
                 publishers={publishers}
                 cancle={this.hideGameForm}
-                submit={this.addGame}
+                submit={this.saveGame}
                 game={this.state.selectedGame}
               />
             </div>
