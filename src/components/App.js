@@ -132,7 +132,9 @@ toggleFeatured = gameId => {
       showGameForm: false
     });
 
-
+    deleteGame = game => this.setState({
+      games:this.state.games.filter(item => item._id !== game._id)
+    });
 
 
   render() {
@@ -156,6 +158,7 @@ toggleFeatured = gameId => {
               games={this.state.games}
               toggleFeatured={this.toggleFeatured}
               editGame={this.selectGameForEditing}
+              deleteGame={this.deleteGame}
             />
           </div>
         </div>
