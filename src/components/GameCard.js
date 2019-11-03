@@ -2,7 +2,7 @@ import React from 'react';
 import Featured from './Featured';
 import propTypes from 'prop-types';
 
-const GameCard = ({ game, toggleFeatured }) => (
+const GameCard = ({ game, toggleFeatured, editGame }) => (
   <div className="ui card">
     <div className="image">
       <span className="ui green ribbon label">
@@ -23,6 +23,16 @@ const GameCard = ({ game, toggleFeatured }) => (
         <i className="icon wait"></i> {game.duration} min.
       </div>
     </div>
+    <div className="extra content">
+      <div className="ui two buttons">
+        <a className="ui green basic button" onClick={() => editGame(game)}>
+          <i className="ui icon edit"></i>
+        </a>
+        <a className="ui red basic button">
+          <i className="ui icon trash"></i>
+        </a>
+      </div>
+    </div>
   </div>
 );
 
@@ -35,6 +45,9 @@ GameCard.prototypes = {
     duration: propTypes.number.isRequired,
     featured: propTypes.bool.isRequired,
   }).isRequired,
+  toggleFeatured: propTypes.func.isRequired,
+  editGame: propTypes.func.isRequired,
+  
 };
 
 export default GameCard;

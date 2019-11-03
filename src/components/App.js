@@ -31,9 +31,9 @@ const games = [
     _id: 2,
     publisher: 1,
     featured: false,
-    name: 'Five Tribes',
+    name: 'Call Of Duty',
     thumbnail:
-      'https://cf.geekdo-images.com/itemrep/img/o3D15fBxzTt3k2IFZ2u2Xr7Wlyk=/fit-in/246x300/pic2055255.jpg',
+     "https://cdn.upcomer.com/esports/__sized__/game/images/2016/02/26/103411cod-blackops3-thumbnail-480x480-70.jpg",
     price: 6000,
     players: '2-5',
     duration: 80,
@@ -65,6 +65,7 @@ class App extends React.Component {
   state = {
     games: [],
     showGameForm: false,
+    selectedGame: {},
   };
 
   componentDidMount() {
@@ -73,6 +74,9 @@ class App extends React.Component {
     });
   }
 
+
+
+  
   toggleFeatured = gameId => {
     const newGames = this.state.games.map(game => {
       if (game._id === gameId) return { ...game, featured: !game.featured };
@@ -81,21 +85,30 @@ class App extends React.Component {
     this.setState({ games: newGames });
   };
 
+
+
   showGameForm = () => this.setState({ showGameForm: true });
   hideGameForm = () => this.setState({ showGameForm: false });
 
-  addGame = game => this.setState({
-    games: [
-      ...this.state.games,
-      {
-        ...game,
+  selectGameForEditing = game =>
+    this.setState({ selectedGame: game, showGameForm: true });
 
-        _id: this.state.games.length + 1
-      }
 
-    ],
-    showGameForm: false,
-  })
+  addGame = game =>
+    this.setState({
+      games: [
+        ...this.state.games,
+        {
+          ...game,
+
+          _id: this.state.games.length + 1,
+        },
+      ],
+      showGameForm: false,
+    });
+
+
+
 
   render() {
     const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
@@ -105,14 +118,19 @@ class App extends React.Component {
         <div className="ui stackable grid">
           {this.state.showGameForm && (
             <div className="six wide column">
-              <GameForm publishers={publishers} cancle={this.hideGameForm}
-              submit={this.addGame} />
+              <GameForm
+                publishers={publishers}
+                cancle={this.hideGameForm}
+                submit={this.addGame}
+                game={this.state.selectedGame}
+              />
             </div>
           )}
           <div className={`${numberOfColumns} wide column`}>
             <GamesList
               games={this.state.games}
               toggleFeatured={this.toggleFeatured}
+              editGame={this.selectGameForEditing}
             />
           </div>
         </div>
