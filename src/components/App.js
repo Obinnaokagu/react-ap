@@ -3,6 +3,7 @@ import _orderBy from 'lodash/orderBy';
 import GamesList from './GamesList';
 import GameForm from './GameForm';
 import TopNavigation from './TopNavigation';
+import api from './api';
 
 const publishers = [
   {
@@ -15,51 +16,6 @@ const publishers = [
   },
 ];
 
-const games = [
-  {
-    _id: 1,
-    publisher: 1,
-    featured: true,
-    name: 'Strategy Pack-A',
-    thumbnail:
-      'https://ksr-ugc.imgix.net/assets/015/361/511/eb3139a5996c2615e879a684ebfd9af1_original.jpg?w=680&fit=max&v=1485968021&auto=format&q=92&s=883858ed01e7244525f6729b0e5a98b2',
-    price: 3599,
-    players: '2-4',
-    duration: 60,
-  },
-  {
-    _id: 2,
-    publisher: 1,
-    featured: false,
-    name: 'Call Of Duty',
-    thumbnail:
-     "https://cdn.upcomer.com/esports/__sized__/game/images/2016/02/26/103411cod-blackops3-thumbnail-480x480-70.jpg",
-    price: 6000,
-    players: '2-5',
-    duration: 80,
-  },
-  {
-    _id: 3,
-    publisher: 2,
-    featured: false,
-    name: 'King Of New York',
-    thumbnail:
-      'http://www.ibgcafe.com/wp-content/uploads/bfi_thumb/kony-1-nqdex1he2sfnm7l6kl3zojwierbloon60oxgi3fxd8.jpg',
-    price: 5200,
-    players: '2-4',
-    duration: 45,
-  },
-  {
-    _id: 4,
-    publisher: 2,
-    featured: false,
-    name: 'Big Buck Bunny',
-    thumbnail: 'https://i4.lisimg.com/13684264/411full.jpg',
-    price: 7000,
-    players: '2-6',
-    duration: 90,
-  },
-];
 
 class App extends React.Component {
   state = {
@@ -69,10 +25,16 @@ class App extends React.Component {
   };
 
   
+  // componentDidMount() {
+  //   this.setState({
+  //     games: this.sortGames(games)
+  //   });
+  // }
+
   componentDidMount() {
-    this.setState({
-      games: this.sortGames(games)
-    });
+    api.games
+    .fetchAll()
+    .then(games => this.setState({ games: this.sortGames(games) }));
   }
 
   sortGames(games) {
